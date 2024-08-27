@@ -1,0 +1,48 @@
+pipeline {
+    agent any
+
+    environment {
+        // Define any environment variables here
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                // Checkout the branch that triggered the build
+                checkout scm
+            }
+        }
+
+        stage('Build') {
+            steps {
+                // Example build step (e.g., running a build script)
+                echo 'Building...'
+                // sh 'make build'  // Uncomment and replace with your build command
+            }
+        }
+
+        stage('Test') {
+            steps {
+                // Example test step (e.g., running tests)
+                echo 'Running tests...'
+                // sh 'make test'  // Uncomment and replace with your test command
+            }
+        }
+    }
+
+    post {
+        always {
+            // Actions that are always performed, regardless of success or failure
+            echo 'Cleaning up...'
+            // Clean up workspace or artifacts if necessary
+        }
+        success {
+            // Actions to perform on successful completion
+            echo 'Build and tests were successful!'
+        }
+        failure {
+            // Actions to perform if the build or tests fail
+            echo 'Build or tests failed.'
+        }
+    }
+}
